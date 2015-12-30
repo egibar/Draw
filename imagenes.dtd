@@ -1,0 +1,10 @@
+
+<!ELEMENT imagenes(imagen)>
+	<!ELEMENT imagen(link,solucion,usuario)>
+
+		<!ELEMENT link (#PCDATA)>
+		<!ELEMENT solucion (#PCDATA)>
+		<!ELEMENT usuario (nombre, correo)>
+			<!ELEMENT nombre (#PCDATA)>
+			<!ELEMENT correo (#PCDATA)>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE imagenes SYSTEM "imagenes.dtd">
+<imagenes>	
+	<imagen>
+		<link>imagenes/casa.txt</link>
+		<solucion>casa</solucion>
+		<usuario>
+			<nombre>Gorka</nombre>
+			<correo>loque@gmail.com</correo>
+		</usuario>
+	</imagen>
+<imagen><link>imagenes/raton.txt</link><solucion>raton</solucion><usuario><nombre>gorka</nombre><correo>prueba@gmall.com</correo></usuario></imagen>
+</imagenes>

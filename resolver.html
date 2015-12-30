@@ -1,0 +1,109 @@
+<html>
+<head>
+
+    <link href="ico.ico" type="image/x-ico" rel="shortcut icon" />
+<link rel="stylesheet" href="index.css" />
+<title>Resolver</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+	
+	function ini() {
+		var parser, xmlDoc;
+		parser = new DOMParser();
+		var xhttp = new XMLHttpRequest();
+		
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var xml = xhttp.responseText;
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var dataUrl = xmlDoc.getElementsByTagName("link")[0].childNodes[0].nodeValue;
+				document.getElementById("imagen").src = dataUrl;
+				document.getElementById("imagen").display = "inline";
+			}
+		};
+		
+		xhttp.open("POST", "resolver.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("q=1");
+		
+	}
+	
+	function redireccionarPagina() {
+		window.location = "index.html";
+	}
+	
+	function comprobar() {
+		var parser, xmlDoc;
+		parser = new DOMParser();
+		var xhttp = new XMLHttpRequest();
+		var sol = document.getElementById("solucion").value;
+		var enlace = document.getElementById("imagen").src;
+		
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var xml = xhttp.responseText;
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var dataUrl = xmlDoc.getElementsByTagName("link")[0].childNodes[0].nodeValue;
+				if(dataUrl == 'true') {
+					alert("¡¡¡Has adivinado, felicidades!!!");
+					//efectos especiales..
+					document.getElementById("planePath").style.display = "inline";
+					document.getElementById("plane").style.display = "inline";
+					setTimeout("redireccionarPagina()", 6000);
+				} else
+					alert("Has fallado, intentalo de nuevo.");
+			}
+		};
+		
+		xhttp.open("POST", "resolver.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("q=3&sol="+sol+"&link="+enlace);
+	
+	}
+
+</script>
+
+</head>
+<body onload="ini()">
+     <div class="logo-container">
+				<svg class="logo" width="94.4px" height="56px">
+						<g>
+								<polygon points="49.3,56 49.3,0 0,28 	" />
+								<path d="M53.7,3.6v46.3l40.7-23.2L53.7,3.6z M57.7,10.6l28.4,16.2L57.7,42.9V10.6z" />
+						</g>
+				</svg>
+		</div>
+        <div class="o">
+<ul>
+    <h1> Adivina los siguientes dibujos: </h1>
+ 
+   <img id="imagen" style="position:absolute;top:15%;left:42%;" style="display:none;">
+  
+  <svg viewBox="0 0 3387 1270">
+  <path id="planePath" class="planePath" style="display:none;"  d="M-226 626c439,4 636,-213 934,-225 755,-31 602,769 1334,658 562,-86 668,-698 266,-908 -401,-210 -893,189 -632,630 260,441 747,121 1051,91 360,-36 889,179 889,179"/>
+  
+  <g id="plane" style="display:none;">
+   <polygon class="fil1" points="-141,-10 199,0 -198,-72 -188,-61 -171,-57 -184,-57 "/>
+   <polygon class="fil2" points="199,0 -141,-10 -163,63 -123,9 "/>
+   <polygon class="fil3" points="-95,39 -113,32 -123,9 -163,63 -105,53 -108,45 -87,48 -90,45 -103,41 -94,41 "/>
+   <path class="fil4" d="M-87 48l-21 -3 3 8 19 -4 -1 -1zm-26 -16l18 7 -2 -1 32 -7 -29 1 11 -4 -24 -1 -16 -18 10 23zm10 9l13 4 -4 -4 -9 0z"/>
+   <polygon class="fil1" points="-83,28 -94,32 -65,31 -97,38 -86,49 -67,70 199,0 -123,9 -107,27 "/>
+  </g>
+  <!-- Define the motion path animation -->
+    <animateMotion 
+                   xlink:href="#plane"
+                   dur="5s" 
+                   repeatCount="indefinite" 
+                   rotate="auto">
+      <mpath xlink:href="#planePath" />
+    </animateMotion>
+</svg>
+
+    <div id=body>
+        <label for="solucion" class="texto"style="position:absolute;top:503px;left:35%;">Solucion</span></label>
+		<br/> <input type="text" id="solucion" value="" class="form-input"  style="position:absolute;top:500px;left:42%;"/>
+			<input type="button" value="Resolver" id="btn" size="30" onclick="comprobar()" class="form-btn" style="position:absolute;top:503px;left:65%;"><br />
+    </div>
+            </ul>
+</body>
+</html>
